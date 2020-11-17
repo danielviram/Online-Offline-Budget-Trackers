@@ -47,7 +47,7 @@ self.addEventListener("install", function(evt) {
             caches.open(DATA_CACHE_NAME).then(cache => {
               return fetch(evt.request)
                 .then(response => {
-                  // If the response is ok, clone it and store it in the cache.
+                
                   if (response.status === 200) {
                     cache.put(evt.request.url, response.clone());
                   }
@@ -55,10 +55,19 @@ self.addEventListener("install", function(evt) {
                   return response;
                 })
                 .catch(err => {
-                    return cache.match(evt.request);
+                return cache.match(evt.request);
                 });
             }).catch(err => console.log(err))
           );
+      
           return;
         }
-        
+      
+        evt.respondWith(
+          caches.open(CACHE_NAME).then(cache => {
+            return cache.match(evt.request).then(response => {
+              return response || fetch(evt.request);
+            });
+          })
+        );
+      });
