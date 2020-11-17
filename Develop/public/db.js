@@ -1,22 +1,33 @@
 let bd;
 
-const request = IndexedDB.open("budget", 1);
 
-request.onupgradeneeded = function (event) {
+const request = indexedDB.open("budget", 1);
+
+request.onupgradeneeded = function(event) {
     const db = event.target.result;
     db.createObjectStore ("pending", {autoIncrement: true});
 };
 
 request.onsuccess = function(event) {
-    db = event.target.result; 
-};
-
-request.onerroe = function (event) {
-    console.log ("Woops!" + event.target.errorCode);
-};
+    db = event.target.result;
+  };
+  
+  request.onerror = function(event) {
+    console.log("Woops! " + event.target.errorCode);
+  };
 
 function saveRecord(record)  {
     console.log('saveRecord');
 
-    con
+    const transaction = db.transaction(["pending"], "readwrite");
+    const store = transaction.objectStore("pending");
+    store.add(record);
+};
+
+function checkDatebase(){
+    const transaction =db.transaction(["pending"],"readwite");
+    const store = transaction.objectStore("pending");
+    const getAll = store.getAll();
+
+    getAll.onsuccess = function()
 }
