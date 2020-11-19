@@ -21,4 +21,4 @@ This command-line application dynamically generates a HTML from a user's input. 
                 npm start
 ## Repository
 -[GitHub Link](https://github.com/danielviram/Online-Offline-Budget-Trackers)
--[Project Link] (https://cryptic-river-44195.herokuapp.com)
+-[Project Link](https://cryptic-river-44195.herokuapp.com)
